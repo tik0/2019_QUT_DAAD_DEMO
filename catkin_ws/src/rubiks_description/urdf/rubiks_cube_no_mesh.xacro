@@ -63,7 +63,7 @@
         <geometry>
           <box size="0.1 0.1 0.001"/>
         </geometry>
-        <material name="white"/>
+        <material name="yellow"/>
     </visual>
 
     <inertial>
