@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<robot name="rubiks_cube" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find rubiks_description)/urdf/materials.xacro" />
+
+  <!-- Import Gazebo elements, including Gazebo colors -->
+  <xacro:include filename="$(find rubiks_description)/urdf/rubiks_cube.gazebo" />
+
+  <link name="world"/>
+
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+
+  <!-- Base Link -->
+  <link name="base_link">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+
+    <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+          <!-- mesh filename="package://rubiks_description/meshes/rubiks_cube/cube.dae" scale="0.1 0.1 0.1"/ -->
+          <box size="0.01 0.01 0.01"/>
+        </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="1.0"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+  
+
+  <joint name="bot_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="bot_link"/>
+    <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+    <axis xyz="1 1 1"/>
+    <dynamics damping="0.0"/>
+  </joint>
+
+  <link name="bot_link">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.1 0.1 0.001"/>
+      </geometry>
+    </collision>
+
+    <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+          <box size="0.1 0.1 0.001"/>
+        </geometry>
+        <material name="white"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="1.0"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+<joint name="top_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="top_link"/>
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+    <axis xyz="1 1 1"/>
+    <dynamics damping="0.0"/>
+  </joint>
+
+
+  <link name="top_link">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.1 0.1 0.001"/>
+      </geometry>
+    </collision>
+
+    <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+          <box size="0.1 0.1 0.001"/>
+        </geometry>
+        <material name="green"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="1.0"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+<joint name="left_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_link"/>
+    <origin xyz="0 0.05 0.0" rpy="0 0 0"/>
+    <axis xyz="1 1 1"/>
+    <dynamics damping="0.0"/>
+  </joint>
+
+
+  <link name="left_link">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.1 0.001 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+          <box size="0.1 0.001 0.1"/>
+        </geometry>
+        <material name="red"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="1.0"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+
+
+  <joint name="right_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_link"/>
+    <origin xyz="0 -0.05 0.0" rpy="0 0 0"/>
+    <axis xyz="1 1 1"/>
+    <dynamics damping="0.0"/>
+  </joint>
+
+
+  <link name="right_link">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.1 0.001 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+          <box size="0.1 0.001 0.1"/>
+        </geometry>
+        <material name="purple"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="1.0"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+<joint name="front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_link"/>
+    <origin xyz="0.05 0.0 0.0" rpy="0 0 0"/>
+    <axis xyz="1 1 1"/>
+    <dynamics damping="0.0"/>
+  </joint>
+
+
+  <link name="front_link">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.001 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+          <box size="0.001 0.1 0.1"/>
+        </geometry>
+        <material name="blue"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="1.0"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+  <joint name="back_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="back_link"/>
+    <origin xyz="-0.05 0.0 0.0" rpy="0 0 0"/>
+    <axis xyz="1 1 1"/>
+    <dynamics damping="0.0"/>
+  </joint>
+
+  <link name="back_link">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.001 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+          <box size="0.001 0.1 0.1"/>
+        </geometry>
+        <material name="orange"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="1.0"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+</robot>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>rubiks_description</name>
+  <version>0.0.1</version>
+  <description>The rubiks_description package</description>
+
+  <maintainer email="tkorthals@cit-ec.uni-bielefeld.de">Timo Korthals</maintainer>
+
+  <license>BSD</license>
+
+  <url type="repository">TBD</url>
+
+  <author email="tkorthals@cit-ec.uni-bielefeld.de">Timo Korthals</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+</package>

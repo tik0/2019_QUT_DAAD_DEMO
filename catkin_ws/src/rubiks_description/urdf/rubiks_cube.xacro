@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot name="rubiks_cube" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Base Link -->
+  <link name="base_link">
+    <!-- Base -->
+    <collision name='base_collision'>
+      <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual name='base_visual'>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+          <mesh filename="package://rubiks_description/meshes/rubiks_cube/cube.dae" scale="0.1 0.1 0.1"/>
+          <!-- box size="0.1 0.1 0.1"/ -->
+        </geometry>
+    </visual>
+
+    <inertial name='base_inertia'>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="1.0"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+  <model><static>1</static></model>
+</robot>

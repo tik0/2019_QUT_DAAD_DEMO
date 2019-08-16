@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<robot>
+
+  <gazebo reference="top_link">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <gazebo reference="bot_link">
+    <material>Gazebo/White</material>
+  </gazebo>
+  <gazebo reference="right_link">
+    <material>Gazebo/Purple</material>
+  </gazebo>
+  <gazebo reference="left_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="front_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="back_link">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="base_link">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
+
+</robot>
