@@ -1,8 +1,15 @@
 # 2019_QUT_DAAD_DEMO
 First sampling of Rubik's Cube viewpoints in Gazebosim
 
-- Run the cube simulation with `roslaunch rubiks_description cube.launch`
-- Alter the cube pose with `rosed rubiks_description cube.launch`
+Slides: https://docs.google.com/presentation/d/1RRx7ej7wjt436i5TSMu7O3fbJ1yzu5_S09al2V4BUIo/edit?usp=sharing
+
+## Sample Data with Free-Floating Camera
+
+- Run tha data sampling with `./run.py` which produces bags, pngs, and a gif of the trajectory
+ - NOTE: Gazebo restarts every yaw-sweep because of non-closed sockets
+ - Images can be viewd via `rosrun rqt_image_view rqt_image_view`
+ - Alter the cube pose by some PI rotation with `rosed rubiks_description cube.launch`
+- Run the cube simulation standalone with `roslaunch rubiks_description cube.launch`
 
 ## Panda Setup
 

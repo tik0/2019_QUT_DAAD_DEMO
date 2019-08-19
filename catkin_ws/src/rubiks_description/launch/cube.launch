@@ -3,6 +3,9 @@
 
 
   <!-- These are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="world_cube_x" default="0.0"/>
+  <arg name="world_cube_y" default="0.0"/>
+  <arg name="world_cube_z" default="0.05"/>
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
   <arg name="gz_gui" default="false"/>
@@ -21,14 +24,15 @@
     <arg name="verbose" value="$(arg gz_verbose)"/>
   </include>
 
-  <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="robot_description"
-    command="$(find xacro)/xacro --inorder '$(find rubiks_description)/urdf/rubiks_cube_no_mesh.xacro'"/>
+  <group ns="cube">
+    <!-- Load the URDF into the ROS Parameter Server -->
+    <param name="robot_description"
+      command="$(find xacro)/xacro --inorder '$(find rubiks_description)/urdf/rubiks_cube_no_mesh.xacro' world_cube_x:=$(arg world_cube_x) world_cube_y:=$(arg world_cube_y) world_cube_z:=$(arg world_cube_z)"/>
 
-  <!-- Run a python script to send a service call to gazebo_ros to spawn a URDF robot -->
-  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-    args="-urdf -model rubiks_cube -param robot_description -x 0.0 -y 0.0 -z 0.05 -R 0.0 -P 0.0 -Y 0.0"/>
-
+    <!-- Run a python script to send a service call to gazebo_ros to spawn a URDF robot -->
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+      args="-urdf -model rubiks_cube -param robot_description -x 0.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0"/>
+  </group>
 
   <!--load camera model-->
   <group ns="cameras">
@@ -36,11 +40,6 @@
 
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
           args="-urdf -model camera -param robot_description -x 0.0 -y 0.0 -z 1.0 -R 0 -P 0 -Y 0"/>
-
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
-      <param name="publish_frequency" type="double" value="10.0"/>
-      <param name="robot_description" type="string" value="robot_description"/>
-    </node>
   </group>
 
 </launch>

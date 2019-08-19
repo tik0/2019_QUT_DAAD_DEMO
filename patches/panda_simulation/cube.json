@@ -1,13 +1,13 @@
 {
-  "frame_id": "base_link_cube",
+  "frame_id": "base_link_cube_collision",
   "dimensions": {
     "x": 0.1,
     "y": 0.1,
     "z": 0.1
   },
   "position": {
-    "x": -0.05,
-    "y": -0.05,
+    "x": 0.0,
+    "y": 0.0,
     "z": 0.0
   },
   "orientation": {

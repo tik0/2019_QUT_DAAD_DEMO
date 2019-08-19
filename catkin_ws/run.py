@@ -12,8 +12,8 @@ z_offset = 0.05 # helf hight of cube
 #yaw_steps = 180 # in 2 deg steps
 pitch_steps = 9 # in 10 deg steps
 yaw_steps = 36 # in 10 deg steps
-pitch_steps = 2 # in 10 deg steps
-yaw_steps = 4 # in 10 deg steps
+#pitch_steps = 2 # in 10 deg steps
+#yaw_steps = 4 # in 10 deg steps
 
 # Radius of sphere on which the camera trajectory is defined
 r = 0.2

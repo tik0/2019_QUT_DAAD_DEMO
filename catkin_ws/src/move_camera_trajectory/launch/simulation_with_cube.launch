@@ -1,6 +1,9 @@
 <launch>
 
     <!-- GAZEBO arguments -->
+    <arg name="world_cube_x" default="0.65"/>
+    <arg name="world_cube_y" default="0.0"/>
+    <arg name="world_cube_z" default="0.35"/>
     <arg name="paused" default="false"/>
     <arg name="use_sim_time" default="true"/>
     <arg name="gui_gz" default="false"/>
@@ -12,16 +15,30 @@
 
     <!--launch simulation with Panda in it -->
     <include file="$(find move_camera_trajectory)/launch/simulation.launch">
-        <arg name="paused" value="false"/>
-        <arg name="use_sim_time" value="true"/>
-        <arg name="gui_gz" value="false"/>
-        <arg name="gui_rviz" value="true"/>
-        <arg name="config_rviz" value="$(find move_camera_trajectory)/launch/panda_only.rviz"/>
-        <arg name="headless" value="false"/>
-        <arg name="debug" value="false"/>
-        <arg name="load_gripper" value="true"/>
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+        <arg name="gui_gz" value="$(arg gui_gz)"/>
+        <arg name="gui_rviz" value="$(arg gui_rviz)"/>
+        <arg name="config_rviz" value="$(arg config_rviz)"/>
+        <arg name="headless" value="$(arg headless)"/>
+        <arg name="debug" value="$(arg debug)"/>
+        <arg name="load_gripper" value="$(arg load_gripper)"/>
     </include>
 
-    <node pkg="tf" type="static_transform_publisher" name="tf_cube_broadcaster" args="0.65 0 0.35 0 0 0 1 world base_link_cube 10" />
+    <!-- Frame for the collisions lie in the lower-left corner of the 10x10x10 cube -->
+    <node pkg="tf" type="static_transform_publisher" name="tf_cube_broadcaster" args="-0.05 -0.05 -0.05 0 0 0 1 base_link_cube base_link_cube_collision 100" />
+
+    <!-- Pose definition of base_link_cube wrt to world is in rubiks_cube_no_mesh -->
+    <group ns="rubiks_description">
+        <!-- Load the URDF into the ROS Parameter Server -->
+        <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rubiks_description)/urdf/rubiks_cube_no_mesh.xacro' world_cube_x:=$(arg world_cube_x) world_cube_y:=$(arg world_cube_y) world_cube_z:=$(arg world_cube_z)"/>
+        <!-- Run a python script to send a service call to gazebo_ros to spawn a URDF robot -->
+        <node name="cube_urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+            args="-urdf -model rubiks_cube -param robot_description -x 0.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0"/>
+        <!-- Combine joint values -->
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"  output="screen">
+            <param name="robot_description" type="string" value="robot_description"/>
+        </node>
+    </group>
 
 </launch>

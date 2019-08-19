@@ -7,15 +7,20 @@
   <!-- Import Gazebo elements, including Gazebo colors -->
   <xacro:include filename="$(find rubiks_description)/urdf/rubiks_cube.gazebo" />
 
+  <xacro:property name="world_cube_x" value="$(arg world_cube_x)"/>
+  <xacro:property name="world_cube_y" value="$(arg world_cube_y)"/>
+  <xacro:property name="world_cube_z" value="$(arg world_cube_z)"/>
+
   <link name="world"/>
 
   <joint name="fixed" type="fixed">
     <parent link="world"/>
-    <child link="base_link"/>
+    <child link="base_link_cube"/>
+    <origin xyz="$(arg world_cube_x) $(arg world_cube_y) $(arg world_cube_z)" rpy="0 0 0"/>
   </joint>
 
   <!-- Base Link -->
-  <link name="base_link">
+  <link name="base_link_cube">
     <collision>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
@@ -43,7 +48,7 @@
   
 
   <joint name="bot_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="base_link_cube"/>
     <child link="bot_link"/>
     <origin xyz="0 0 -0.05" rpy="0 0 0"/>
     <axis xyz="1 1 1"/>
@@ -77,7 +82,7 @@
   </link>
 
 <joint name="top_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="base_link_cube"/>
     <child link="top_link"/>
     <origin xyz="0 0 0.05" rpy="0 0 0"/>
     <axis xyz="1 1 1"/>
@@ -112,7 +117,7 @@
   </link>
 
 <joint name="left_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="base_link_cube"/>
     <child link="left_link"/>
     <origin xyz="0 0.05 0.0" rpy="0 0 0"/>
     <axis xyz="1 1 1"/>
@@ -149,7 +154,7 @@
 
 
   <joint name="right_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="base_link_cube"/>
     <child link="right_link"/>
     <origin xyz="0 -0.05 0.0" rpy="0 0 0"/>
     <axis xyz="1 1 1"/>
@@ -184,7 +189,7 @@
   </link>
 
 <joint name="front_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="base_link_cube"/>
     <child link="front_link"/>
     <origin xyz="0.05 0.0 0.0" rpy="0 0 0"/>
     <axis xyz="1 1 1"/>
@@ -219,7 +224,7 @@
   </link>
 
   <joint name="back_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="base_link_cube"/>
     <child link="back_link"/>
     <origin xyz="-0.05 0.0 0.0" rpy="0 0 0"/>
     <axis xyz="1 1 1"/>
