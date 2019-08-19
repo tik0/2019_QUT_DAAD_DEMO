@@ -1,0 +1,9 @@
+[submodule "catkin_ws/src/panda_simulation"]
+	path = catkin_ws/src/panda_simulation
+	url = https://github.com/erdalpekel/panda_simulation
+[submodule "catkin_ws/src/franka_ros"]
+	path = catkin_ws/src/franka_ros
+	url = https://github.com/erdalpekel/franka_ros.git
+[submodule "catkin_ws/src/panda_moveit_config"]
+	path = catkin_ws/src/panda_moveit_config
+	url = https://github.com/erdalpekel/panda_moveit_config.git

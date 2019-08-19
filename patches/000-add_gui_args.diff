@@ -1,0 +1,32 @@
+diff --git a/launch/simulation.launch b/launch/simulation.launch
+index c7f3b09..f6a7b4a 100644
+--- a/launch/simulation.launch
++++ b/launch/simulation.launch
+@@ -4,7 +4,8 @@
+     <!-- GAZEBO arguments -->
+     <arg name="paused" default="false"/>
+     <arg name="use_sim_time" default="true"/>
+-    <arg name="gui" default="true"/>
++    <arg name="gui_gz" default="false"/>
++    <arg name="gui_rviz" default="true"/>
+     <arg name="headless" default="false"/>
+     <arg name="debug" default="false"/>
+     <arg name="load_gripper" default="true"/>
+@@ -13,7 +14,7 @@
+     <include file="$(find gazebo_ros)/launch/empty_world.launch">
+         <!-- <arg name="world_name" value="$(find robotics_assisted_tomography)/worlds/tomography.world"/> -->
+         <arg name="debug" value="$(arg debug)"/>
+-        <arg name="gui" value="$(arg gui)"/>
++        <arg name="gui" value="$(arg gui_gz)"/>
+         <arg name="paused" value="$(arg paused)"/>
+         <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+         <arg name="headless" value="$(arg headless)"/>
+@@ -40,7 +41,7 @@
+     <include file="$(find panda_moveit_config)/launch/move_group.launch" >
+         <arg name="load_gripper" value="$(arg load_gripper)" />
+     </include>
+-    <group if="$(arg gui)">
++    <group if="$(arg gui_rviz)">
+         <include file="$(find panda_moveit_config)/launch/moveit_rviz.launch" />
+     </group>
+ 
