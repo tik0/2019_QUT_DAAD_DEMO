@@ -1,0 +1,6 @@
+<launch>
+
+  <node name="move_camera_trajectory" pkg="move_camera_trajectory" type="move_camera_trajectory.py" respawn="false" output="screen">
+  </node>
+
+</launch>

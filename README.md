@@ -28,9 +28,15 @@ First sampling of Rubik's Cube viewpoints in Gazebosim
 - Use the python tutorials `http://docs.ros.org/indigo/api/moveit_tutorials/html/doc/pr2_tutorials/planning/src/doc/motion_planning_api_tutorial.html`
 - Follow the scripts in the tutorials: `https://github.com/ros-planning/moveit_tutorials/tree/kinetic-devel/doc/move_group_python_interface`
 - I've forked the package in `move_group_python_interface` which is executable as follows:
- - Run the simulation: `roslaunch panda_simulation simulation.launch gui_rviz:=True gui_gz:=False`
+ - Run the simulation: `roslaunch move_camera_trajectory simulation.launch gui_True:=False gui_gz:=False config_rviz:=$(rospack find move_camera_trajectory)/launch/panda_only.rviz`
  - Run the tutorial: `roslaunch move_group_python_interface move_group_python_interface_tutorial.launch`
 
 ### Use the camera sampling script
 
-- Todo
+- Planning happens originally in the `panda_link8` frame wrt. the `world` which can be evaluated by
+ - Bash: `bash> rosrun tf tf_echo world panda_link8` and see that the desired values match
+ - Python and the Tutorial example from before: `move_group.get_planning_frame()` (`http://docs.ros.org/kinetic/api/moveit_commander/html/classmoveit__commander_1_1move__group_1_1MoveGroupCommander.html`)
+ - HOWEVER, we want to plan the `panda_hand` frame wrt. the reference frame `base_link_cube` to define a trajectory around Rubik's cube
+- Run simulator: `roslaunch move_camera_trajectory simulation_with_cube.launch gui_True:=False gui_gz:=False config_rviz:=$(rospack find move_camera_trajectory)/launch/panda_only.rviz`
+- Run the trajectory planer: `roslaunch move_camera_trajectory move_camera_trajectory.launch`
+
