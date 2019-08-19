@@ -37,6 +37,7 @@ First sampling of Rubik's Cube viewpoints in Gazebosim
  - Bash: `bash> rosrun tf tf_echo world panda_link8` and see that the desired values match
  - Python and the Tutorial example from before: `move_group.get_planning_frame()` (`http://docs.ros.org/kinetic/api/moveit_commander/html/classmoveit__commander_1_1move__group_1_1MoveGroupCommander.html`)
  - HOWEVER, we want to plan the `panda_hand` frame wrt. the reference frame `base_link_cube` to define a trajectory around Rubik's cube
+- Collision objects will be loaded from `~/.panda_simulation` via `panda_simulation robot_control_node`
 - Run simulator: `roslaunch move_camera_trajectory simulation_with_cube.launch gui_True:=False gui_gz:=False config_rviz:=$(rospack find move_camera_trajectory)/launch/panda_only.rviz`
 - Run the trajectory planer: `roslaunch move_camera_trajectory move_camera_trajectory.launch`
 

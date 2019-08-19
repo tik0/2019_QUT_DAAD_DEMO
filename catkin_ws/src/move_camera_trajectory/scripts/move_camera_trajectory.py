@@ -174,7 +174,7 @@ def main():
     #pitch_steps = 2 # in 10 deg steps
     #yaw_steps = 4 # in 10 deg steps
     # Radius of sphere on which the camera trajectory is defined
-    radius = 0.2
+    radius = 0.3
 
     def pose(_pitch, _yaw):
         x = -np.cos(_pitch) * np.cos(_yaw) * radius

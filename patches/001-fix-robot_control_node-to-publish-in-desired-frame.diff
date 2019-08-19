@@ -1,0 +1,25 @@
+diff --git a/src/robot_control_node.cpp b/src/robot_control_node.cpp
+index e1f857b..5bff5a9 100644
+--- a/src/robot_control_node.cpp
++++ b/src/robot_control_node.cpp
+@@ -12,7 +12,10 @@ static const std::string APP_DIRECTORY_NAME = ".panda_simulation";
+ moveit_msgs::CollisionObject extractObstacleFromJson(Json::Value &root, std::string name)
+ {
+   moveit_msgs::CollisionObject collision_object;
+-  collision_object.header.frame_id = "world";
++  //collision_object.header.frame_id = "world";
++  const std::string frame_id = root["frame_id"].asString();
++  ROS_INFO_STREAM("Extracted frame_id: " << frame_id);
++  collision_object.header.frame_id = frame_id;
+   collision_object.id = name;
+ 
+   const Json::Value dimensions = root["dimensions"];
+@@ -108,7 +111,7 @@ int main(int argc, char **argv)
+     // Publish the collision objects to the scene
+     for (const auto &collision_object : collision_objects)
+     {
+-      collision_object.header.frame_id = move_group_arm.getPlanningFrame();
++      //collision_object.header.frame_id = move_group_arm.getPlanningFrame();
+       planning_scene.world.collision_objects.push_back(collision_object);
+     }
+ 
