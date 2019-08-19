@@ -53,6 +53,6 @@
     <node name="joint_state_desired_publisher" pkg="topic_tools" type="relay" args="joint_states joint_states_desired" />
     
     <!-- launch robot control node for moveit motion planning -->
-    <node pkg="panda_simulation" type="robot_control_node" name="robot_control_node" />
+    <node pkg="move_camera_trajectory" type="timed_roslaunch.sh" args="8 move_camera_trajectory robot_control_node.launch" name="timed_roslaunch_robot_control_node" output="screen" />
 
 </launch>
