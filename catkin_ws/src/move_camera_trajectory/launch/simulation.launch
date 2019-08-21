@@ -1,5 +1,4 @@
 <launch>
-    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find franka_description)/robots/panda_arm_hand.urdf.xacro"/>
 
     <!-- GAZEBO arguments -->
     <arg name="paused" default="false"/>
@@ -9,7 +8,10 @@
     <arg name="config_rviz" default="$(find move_camera_trajectory)/launch/panda_only.rviz"/>
     <arg name="headless" default="false"/>
     <arg name="debug" default="false"/>
+    <arg name="verbose" default="false"/>
     <arg name="load_gripper" default="true"/>
+    <arg name="load_robot_description" default="true"/>
+    <arg name="panda_xacro" default="$(find franka_description)/robots/panda_arm_hand.urdf.xacro"/>
 
     <!--launch GAZEBO with own world configuration -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -17,15 +19,20 @@
         <arg name="debug" value="$(arg debug)"/>
         <arg name="gui" value="$(arg gui_gz)"/>
         <arg name="paused" value="$(arg paused)"/>
+        <arg name="verbose" value="$(arg verbose)"/>
         <arg name="use_sim_time" value="$(arg use_sim_time)"/>
         <arg name="headless" value="$(arg headless)"/>
     </include>
 
+
+    <!-- Load the model onto the parameter server and spawn it in Gazebo -->
+    <group if="$(arg load_robot_description)">
+        <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg panda_xacro)"/>
+    </group>
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model panda"/>
 
     <!-- Load joint controller configurations from YAML file to parameter server -->
     <rosparam file="$(find panda_simulation)/config/panda_control.yaml" command="load"/>
-
 
     <!-- load the controllers -->
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="joint_state_controller panda_arm_controller" />
@@ -36,7 +43,7 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
 
     <include file="$(find panda_moveit_config)/launch/planning_context.launch">
-        <arg name="load_robot_description" value="true"/>
+        <arg name="load_robot_description" value="false"/>
         <arg name="load_gripper" value="$(arg load_gripper)" />
     </include>
     <include file="$(find panda_moveit_config)/launch/move_group.launch" >

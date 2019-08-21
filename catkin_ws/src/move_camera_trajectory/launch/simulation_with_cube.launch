@@ -1,7 +1,7 @@
 <launch>
 
     <!-- GAZEBO arguments -->
-    <arg name="world_cube_x" default="0.65"/>
+    <arg name="world_cube_x" default="0.60"/>
     <arg name="world_cube_y" default="0.0"/>
     <arg name="world_cube_z" default="0.35"/>
     <arg name="paused" default="false"/>
@@ -11,7 +11,9 @@
     <arg name="config_rviz" default="$(find move_camera_trajectory)/launch/panda_only.rviz"/>
     <arg name="headless" default="false"/>
     <arg name="debug" default="false"/>
+    <arg name="verbose" default="false"/>
     <arg name="load_gripper" default="true"/>
+    <arg name="load_robot_description" default="true"/>
 
     <!--launch simulation with Panda in it -->
     <include file="$(find move_camera_trajectory)/launch/simulation.launch">
@@ -22,7 +24,9 @@
         <arg name="config_rviz" value="$(arg config_rviz)"/>
         <arg name="headless" value="$(arg headless)"/>
         <arg name="debug" value="$(arg debug)"/>
+        <arg name="verbose" value="$(arg verbose)"/>
         <arg name="load_gripper" value="$(arg load_gripper)"/>
+        <arg name="load_robot_description" value="$(arg load_robot_description)"/>
     </include>
 
     <!-- Frame for the collisions lie in the lower-left corner of the 10x10x10 cube -->

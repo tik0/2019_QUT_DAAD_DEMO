@@ -1,0 +1,36 @@
+<launch>
+
+    <!-- GAZEBO arguments -->
+    <arg name="world_cube_x" default="0.70"/>
+    <arg name="world_cube_y" default="0.0"/>
+    <arg name="world_cube_z" default="0.40"/>
+    <arg name="camera_fps" default="5"/>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui_gz" default="false"/>
+    <arg name="gui_rviz" default="true"/>
+    <arg name="config_rviz" default="$(find move_camera_trajectory)/launch/panda_only.rviz"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+    <arg name="verbose" default="false"/>
+    <arg name="load_gripper" default="true"/>
+    <arg name="panda_xacro" default="$(find move_camera_trajectory)/urdf/panda_arm_hand_camera.urdf.xacro"/>
+
+    <!--load the panda with D435 RGB camera -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg panda_xacro) camera_fps:=$(arg camera_fps)"/>
+
+    <!--launch simulation with Panda in it -->
+    <include file="$(find move_camera_trajectory)/launch/simulation_with_cube.launch">
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+        <arg name="gui_gz" value="$(arg gui_gz)"/>
+        <arg name="gui_rviz" value="$(arg gui_rviz)"/>
+        <arg name="config_rviz" value="$(arg config_rviz)"/>
+        <arg name="headless" value="$(arg headless)"/>
+        <arg name="debug" value="$(arg debug)"/>
+        <arg name="verbose" value="$(arg verbose)"/>
+        <arg name="load_gripper" value="$(arg load_gripper)"/>
+        <arg name="load_robot_description" default="false"/>
+    </include>
+
+</launch>

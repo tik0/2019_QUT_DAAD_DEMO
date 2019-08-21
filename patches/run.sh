@@ -14,7 +14,13 @@ cd $F
 git apply $P
 cd -
 
+P="002-add-legacyModeNS.patch"
+F="../catkin_ws/src/franka_ros/"
+cp $P $F
+cd $F
+git apply $P
+cd -
 
-# Create objects
+# Create collision objects
 cp -r ./panda_simulation ~/.panda_simulation
 

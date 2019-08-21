@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<robot name="panda" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="robot_name" default="panda"/>
+  <xacro:property name="camera_fps" value="$(arg camera_fps)"/>
+  <xacro:include filename="$(find franka_description)/robots/panda_arm_hand.urdf.xacro" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+  <xacro:include filename="$(find move_camera_trajectory)/urdf/camera_rgb.urdf.xacro" />
+  
+  <joint name="camera_hand_joint" type="fixed">
+        <parent link="panda_hand"/>
+        <child link="camera_base_link"/>
+        <origin xyz="0.040 -0.0175 0.066" rpy="3.1415 -1.571 0.0"/>
+  </joint>
+
+  <link name="camera_base_link" />
+  <sensor_d435 parent="camera_base_link">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </sensor_d435>
+
+  <link name="camera_color_optical_frame_corrected_pitch" />
+  <link name="camera_color_optical_frame_corrected_roll" />
+  <link name="camera_color_optical_frame_ctrl" />
+  <joint name="camera_color_optical_frame_correcttion_joint_pitch" type="fixed">
+        <parent link="camera_color_optical_frame"/>
+        <child link="camera_color_optical_frame_corrected_pitch"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 -1.571 0.0"/>
+  </joint>
+  <joint name="camera_color_optical_frame_correction_joint_roll" type="fixed">
+        <parent link="camera_color_optical_frame_corrected_pitch"/>
+        <child link="camera_color_optical_frame_corrected_roll"/>
+        <origin xyz="0.0 0.0 0.0" rpy="1.571 0.0 0.0"/>
+  </joint>
+  <joint name="camera_color_optical_frame_ctrl_joint" type="fixed">
+        <parent link="camera_color_optical_frame"/>
+        <child link="camera_color_optical_frame_ctrl"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.571"/>
+  </joint>
+
+  <xacro:cam parent="camera_color_optical_frame_corrected_roll" camera_fps="${camera_fps}"/>
+
+</robot>
