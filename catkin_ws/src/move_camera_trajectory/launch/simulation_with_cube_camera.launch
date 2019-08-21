@@ -1,9 +1,10 @@
 <launch>
 
     <!-- GAZEBO arguments -->
-    <arg name="world_cube_x" default="0.70"/>
+    <arg name="world_cube_x" default="0.6"/>
     <arg name="world_cube_y" default="0.0"/>
-    <arg name="world_cube_z" default="0.40"/>
+    <arg name="world_cube_z" default="0.4"/>
+    <arg name="cube_size" default="0.045"/>
     <arg name="camera_fps" default="5"/>
     <arg name="paused" default="false"/>
     <arg name="use_sim_time" default="true"/>
@@ -21,6 +22,10 @@
 
     <!--launch simulation with Panda in it -->
     <include file="$(find move_camera_trajectory)/launch/simulation_with_cube.launch">
+        <arg name="world_cube_x" value="$(arg world_cube_x)"/>
+        <arg name="world_cube_y" value="$(arg world_cube_y)"/>
+        <arg name="world_cube_z" value="$(arg world_cube_z)"/>
+        <arg name="cube_size" value="$(arg cube_size)"/>
         <arg name="paused" value="$(arg paused)"/>
         <arg name="use_sim_time" value="$(arg use_sim_time)"/>
         <arg name="gui_gz" value="$(arg gui_gz)"/>

@@ -10,6 +10,7 @@
   <xacro:property name="world_cube_x" value="$(arg world_cube_x)"/>
   <xacro:property name="world_cube_y" value="$(arg world_cube_y)"/>
   <xacro:property name="world_cube_z" value="$(arg world_cube_z)"/>
+  <xacro:property name="cube_size" value="$(arg cube_size)"/>
 
   <link name="world"/>
 
@@ -31,7 +32,7 @@
     <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
-          <!-- mesh filename="package://rubiks_description/meshes/rubiks_cube/cube.dae" scale="0.1 0.1 0.1"/ -->
+          <!-- mesh filename="package://rubiks_description/meshes/rubiks_cube/cube.dae" scale="${cube_size} ${cube_size} ${cube_size}"/ -->
           <box size="0.01 0.01 0.01"/>
         </geometry>
     </visual>
@@ -50,7 +51,7 @@
   <joint name="bot_joint" type="fixed">
     <parent link="base_link_cube"/>
     <child link="bot_link"/>
-    <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+    <origin xyz="0 0 -${cube_size / 2.0}" rpy="0 0 0"/>
     <axis xyz="1 1 1"/>
     <dynamics damping="0.0"/>
   </joint>
@@ -59,14 +60,14 @@
     <collision>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.1 0.1 0.001"/>
+        <box size="${cube_size} ${cube_size} 0.001"/>
       </geometry>
     </collision>
 
     <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
-          <box size="0.1 0.1 0.001"/>
+          <box size="${cube_size} ${cube_size} 0.001"/>
         </geometry>
         <material name="yellow"/>
     </visual>
@@ -84,7 +85,7 @@
 <joint name="top_joint" type="fixed">
     <parent link="base_link_cube"/>
     <child link="top_link"/>
-    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+    <origin xyz="0 0 ${cube_size / 2.0}" rpy="0 0 0"/>
     <axis xyz="1 1 1"/>
     <dynamics damping="0.0"/>
   </joint>
@@ -94,14 +95,14 @@
     <collision>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.1 0.1 0.001"/>
+        <box size="${cube_size} ${cube_size} 0.001"/>
       </geometry>
     </collision>
 
     <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
-          <box size="0.1 0.1 0.001"/>
+          <box size="${cube_size} ${cube_size} 0.001"/>
         </geometry>
         <material name="green"/>
     </visual>
@@ -119,7 +120,7 @@
 <joint name="left_joint" type="fixed">
     <parent link="base_link_cube"/>
     <child link="left_link"/>
-    <origin xyz="0 0.05 0.0" rpy="0 0 0"/>
+    <origin xyz="0 ${cube_size / 2.0} 0.0" rpy="0 0 0"/>
     <axis xyz="1 1 1"/>
     <dynamics damping="0.0"/>
   </joint>
@@ -129,14 +130,14 @@
     <collision>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.1 0.001 0.1"/>
+        <box size="${cube_size} 0.001 ${cube_size}"/>
       </geometry>
     </collision>
 
     <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
-          <box size="0.1 0.001 0.1"/>
+          <box size="${cube_size} 0.001 ${cube_size}"/>
         </geometry>
         <material name="red"/>
     </visual>
@@ -156,7 +157,7 @@
   <joint name="right_joint" type="fixed">
     <parent link="base_link_cube"/>
     <child link="right_link"/>
-    <origin xyz="0 -0.05 0.0" rpy="0 0 0"/>
+    <origin xyz="0 -${cube_size / 2.0} 0.0" rpy="0 0 0"/>
     <axis xyz="1 1 1"/>
     <dynamics damping="0.0"/>
   </joint>
@@ -166,14 +167,14 @@
     <collision>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.1 0.001 0.1"/>
+        <box size="${cube_size} 0.001 ${cube_size}"/>
       </geometry>
     </collision>
 
     <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
-          <box size="0.1 0.001 0.1"/>
+          <box size="${cube_size} 0.001 ${cube_size}"/>
         </geometry>
         <material name="purple"/>
     </visual>
@@ -191,7 +192,7 @@
 <joint name="front_joint" type="fixed">
     <parent link="base_link_cube"/>
     <child link="front_link"/>
-    <origin xyz="0.05 0.0 0.0" rpy="0 0 0"/>
+    <origin xyz="${cube_size / 2.0} 0.0 0.0" rpy="0 0 0"/>
     <axis xyz="1 1 1"/>
     <dynamics damping="0.0"/>
   </joint>
@@ -201,14 +202,14 @@
     <collision>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.001 0.1 0.1"/>
+        <box size="0.001 ${cube_size} ${cube_size}"/>
       </geometry>
     </collision>
 
     <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
-          <box size="0.001 0.1 0.1"/>
+          <box size="0.001 ${cube_size} ${cube_size}"/>
         </geometry>
         <material name="blue"/>
     </visual>
@@ -226,7 +227,7 @@
   <joint name="back_joint" type="fixed">
     <parent link="base_link_cube"/>
     <child link="back_link"/>
-    <origin xyz="-0.05 0.0 0.0" rpy="0 0 0"/>
+    <origin xyz="-${cube_size / 2.0} 0.0 0.0" rpy="0 0 0"/>
     <axis xyz="1 1 1"/>
     <dynamics damping="0.0"/>
   </joint>
@@ -235,14 +236,14 @@
     <collision>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.001 0.1 0.1"/>
+        <box size="0.001 ${cube_size} ${cube_size}"/>
       </geometry>
     </collision>
 
     <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
-          <box size="0.001 0.1 0.1"/>
+          <box size="0.001 ${cube_size} ${cube_size}"/>
         </geometry>
         <material name="orange"/>
     </visual>

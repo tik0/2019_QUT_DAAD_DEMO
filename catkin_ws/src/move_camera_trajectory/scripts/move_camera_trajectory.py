@@ -158,14 +158,14 @@ def main():
     # Configure the parameters of the trajectory
     yaw_offset = np.pi
     z_offset = 0.0 # we assume the origin of the cube is centered in the cube
-    #pitch_steps = 90 # in 1 deg steps
-    #yaw_steps = 360 # in 1 deg steps
-    #pitch_steps = 45 # in 2 deg steps
-    #yaw_steps = 180 # in 2 deg steps
-    pitch_steps = 9 # in 10 deg steps
-    yaw_steps = 36 # in 10 deg steps
+    #pitch_steps = 90
+    #yaw_steps = 360
+    #pitch_steps = 45
+    #yaw_steps = 180
+    pitch_steps = 10 + 1
+    yaw_steps = 36 + 1
     # Radius of sphere on which the camera trajectory is defined
-    radius = 0.25
+    radius = 0.15
 
     def pose(_pitch, _yaw):
         x = -np.cos(_pitch) * np.cos(_yaw) * radius
@@ -192,8 +192,8 @@ def main():
     # return
 
 
-    for _pitch, _pitch_iter in zip(np.linspace(0.0, np.pi / 2.0, num=pitch_steps+1, endpoint=True), range(0, pitch_steps+1)):
-        for _yaw, _yaw_iter in zip(np.linspace(np.pi / 2.0, -np.pi / 2.0, num=yaw_steps, endpoint=False), range(0, yaw_steps)):
+    for _pitch, _pitch_iter in zip(np.linspace(0.0, np.pi / 2.0, num=pitch_steps, endpoint=True), range(0, pitch_steps+1)):
+        for _yaw, _yaw_iter in zip(np.linspace(np.pi / 2.0, -np.pi / 2.0, num=yaw_steps, endpoint=True), range(0, yaw_steps)):
             x, y, z, roll, pitch, yaw = pose(_pitch, _yaw)
             r = R.from_euler('y', 90, degrees=True) # aligne camera view axis on the link to the cube coordinate system
             r *= R.from_euler('x', yaw, degrees=False) # yaw

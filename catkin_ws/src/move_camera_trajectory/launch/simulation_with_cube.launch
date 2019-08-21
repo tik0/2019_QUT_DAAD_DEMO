@@ -4,6 +4,8 @@
     <arg name="world_cube_x" default="0.60"/>
     <arg name="world_cube_y" default="0.0"/>
     <arg name="world_cube_z" default="0.35"/>
+    <arg name="cube_size" default="0.1"/>
+    <arg name="cube_size_2" value="$(eval arg('cube_size')*0.5)"/>
     <arg name="paused" default="false"/>
     <arg name="use_sim_time" default="true"/>
     <arg name="gui_gz" default="false"/>
@@ -30,12 +32,12 @@
     </include>
 
     <!-- Frame for the collisions lie in the lower-left corner of the 10x10x10 cube -->
-    <node pkg="tf" type="static_transform_publisher" name="tf_cube_broadcaster" args="-0.05 -0.05 -0.05 0 0 0 1 base_link_cube base_link_cube_collision 100" />
+    <node pkg="tf" type="static_transform_publisher" name="tf_cube_broadcaster" args="-$(arg cube_size_2) -$(arg cube_size_2) -$(arg cube_size_2) 0 0 0 1 base_link_cube base_link_cube_collision 100" />
 
     <!-- Pose definition of base_link_cube wrt to world is in rubiks_cube_no_mesh -->
     <group ns="rubiks_description">
         <!-- Load the URDF into the ROS Parameter Server -->
-        <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rubiks_description)/urdf/rubiks_cube_no_mesh.xacro' world_cube_x:=$(arg world_cube_x) world_cube_y:=$(arg world_cube_y) world_cube_z:=$(arg world_cube_z)"/>
+        <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rubiks_description)/urdf/rubiks_cube_no_mesh.xacro' world_cube_x:=$(arg world_cube_x) world_cube_y:=$(arg world_cube_y) world_cube_z:=$(arg world_cube_z) cube_size:=$(arg cube_size)"/>
         <!-- Run a python script to send a service call to gazebo_ros to spawn a URDF robot -->
         <node name="cube_urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
             args="-urdf -model rubiks_cube -param robot_description -x 0.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0"/>
