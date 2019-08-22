@@ -40,6 +40,7 @@ def pose(_pitch, _yaw):
 
 killall()
 # Sampling the trajectory
+lookup_pitch_yaw = []
 for _pitch, _pitch_iter in zip(np.linspace(0.0, np.pi / 2.0, num=pitch_steps+1, endpoint=True), range(0, pitch_steps+1)):
 	# Setting the position in the sphere
 	x, y, z, roll, pitch, yaw = pose(_pitch, 0.0)
@@ -55,9 +56,16 @@ for _pitch, _pitch_iter in zip(np.linspace(0.0, np.pi / 2.0, num=pitch_steps+1, 
 		p = Popen('rosbag record -j -O cube_pitch_' + str(_pitch_iter).zfill(3) + '_yaw_' + str(_yaw_iter).zfill(3) + '.bag -l 1 /camera/cam/image_raw > /dev/null', shell=True)
 		p.wait()
 		print('-------------------- pitch ' + str(_pitch_iter).zfill(3)  + ' yaw ' + str(_yaw_iter).zfill(3))
+		lookup_pitch_yaw.append([_pitch, _yaw])
 	p_r.terminate()
 	killall()
 	time.sleep(1.0) # Wait to kill everthing gracefully
+
+# Store all positions to a csv lookup file
+with open("lookup_pitch_yaw.csv", "w") as f:
+	writer = csv.writer(f)
+	writer.writerow(['pitch_rad', 'yaw_rad'])
+	writer.writerows(lookup_pitch_yaw)
 
 # Convert bags to images
 killall()
