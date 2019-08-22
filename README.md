@@ -8,7 +8,7 @@ Video in Gazebo: https://youtu.be/LmE_yJIhcHM
 
 ## Sample Data with Free-Floating Camera
 
-- Run tha data sampling without Panda robot (just a camera sweep in Gazebo) with `./catkin_ws/src/move_camera_trajectory/scripts//run.py` which produces bags, pngs, gif, and movie of the trajectory
+- Run tha data sampling without Panda robot (just a camera sweep in Gazebo) with `./catkin_ws/src/move_camera_trajectory/scripts//run.py` which produces bags, pngs, a lookup list for angles (`lookup_pitch_yaw.csv`), gif, and movie of the trajectory
  - NOTE: Gazebo restarts every yaw-sweep because of non-closed sockets
  - Images can be viewd via `rosrun rqt_image_view rqt_image_view`
  - Alter the cube pose by some PI rotation with `rosed rubiks_description cube.launch`
