@@ -1,0 +1,7 @@
+v1,v2,left,front,right,
+left,front,0,1,-1
+left,right,0,-1,1
+front,left,1,0,-1
+front,right,-1,0,1
+right,left,1,-1,0
+right,front,-1,1,0
